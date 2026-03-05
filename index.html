@@ -573,19 +573,20 @@
             overflow-y: auto;
             overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
-            padding-right: 0.35rem;
-            background: transparent;
+            overflow-anchor: none;
+            scrollbar-gutter: stable both-edges;
+            background: rgba(248, 250, 252, 0.55);
+            border-radius: 0.75rem;
+            padding: 0.5rem;
+            contain: content;
+        }
+        html.dark .dashboard-scroll-region {
+            background: rgba(17, 24, 39, 0.45);
         }
         .dashboard-chart-wrap {
             height: 180px;
             position: relative;
             flex-shrink: 0;
-        }
-        @media (hover: none) {
-            .widget-card:hover {
-                transform: none;
-                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-            }
         }
 
         /* NEW iPhone-style summary widgets */
@@ -664,6 +665,10 @@
                  <button type="button" id="google-signin-btn" class="w-full flex items-center justify-center gap-3 py-2.5 px-4 rounded-lg font-semibold text-sm transition-all duration-200 bg-white text-gray-800 border border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-700">
                     <svg class="w-5 h-5" viewBox="0 0 48 48"><path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#34A853" d="M46.98 24.55c0-1.57-.15-3.09-.42-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></svg>
                     Sign in with Google
+                </button>
+                <button type="button" id="apple-signin-btn" class="w-full flex items-center justify-center gap-3 py-2.5 px-4 rounded-lg font-semibold text-sm transition-all duration-200 bg-black text-white border border-black hover:bg-gray-900 dark:bg-gray-900 dark:text-white dark:border-gray-700 dark:hover:bg-gray-800">
+                    <svg class="w-5 h-5" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.1c-.3-58.5 47.9-86.6 50.1-87.9-27.3-39.9-69.8-45.4-84.9-46-36.1-3.7-70.5 21.3-88.8 21.3-18.3 0-46.7-20.8-76.8-20.3-39.5.6-76 23-96.4 58.5-41.3 71.5-10.5 177.2 29.7 235.3 19.6 28.2 42.9 59.9 73.5 58.8 29.3-1.2 40.3-18.9 75.7-18.9 35.4 0 45.3 18.9 76.3 18.3 31.6-.6 51.5-28.5 70.9-56.9 22.5-32.9 31.8-64.8 32.1-66.4-.7-.3-61.5-23.6-61.9-93.8zM260.3 88.1c16.2-19.6 27.2-46.8 24.2-74.1-23.4.9-51.8 15.6-68.6 35.2-15 17.3-28.1 45-24.6 71.4 26.1 2 52.8-13.3 69-32.5z"/></svg>
+                    Continue with Apple
                 </button>
                  <p class="text-center text-sm text-gray-600 dark:text-gray-400 pt-4">
                     Don’t have an account? 
@@ -883,18 +888,9 @@
                 <!-- Data Management Card -->
                 <div class="widget-card">
                     <h3 class="widget-title mb-6">Data Management</h3>
-                    <div class="mb-6 space-y-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-                        <p class="text-sm font-semibold text-gray-700 dark:text-gray-200">iCloud-Style Cloud Sync</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Connect your Apple ID email for cloud backup profile mapping.</p>
-                        <div>
-                            <label for="settings-icloud-email" class="font-medium text-sm text-gray-700 dark:text-gray-300">Apple ID Email</label>
-                            <input type="email" id="settings-icloud-email" placeholder="name@icloud.com" class="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50/50 premium-input dark:bg-gray-800/50 dark:border-gray-700" />
-                        </div>
-                        <button id="connect-icloud-btn" class="w-full sm:w-auto px-4 py-2 rounded-lg font-semibold text-sm bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition-opacity">Connect iCloud Account</button>
-                        <p id="icloud-connection-status" class="text-sm text-gray-500 dark:text-gray-400"></p>
-                    </div>
-                    <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                        <button id="force-sync-btn" class="w-full text-center p-3 rounded-lg font-semibold transition-colors bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">Force Sync</button>
+                        <div class="space-y-2">
                             <label for="settings-backup-schedule" class="font-medium text-sm text-gray-700 dark:text-gray-300">Backup Schedule</label>
                             <select id="settings-backup-schedule" class="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50/50 premium-input dark:bg-gray-800/50 dark:border-gray-700">
                                 <option value="manual">Manual Only</option>
@@ -907,21 +903,12 @@
                             <label class="font-medium text-sm text-gray-700 dark:text-gray-300">Last Cloud Backup</label>
                             <p id="last-cloud-backup-at" class="mt-1 text-sm text-gray-500 dark:text-gray-400">Never</p>
                         </div>
-                    </div>
-                    <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="font-medium text-sm text-gray-700 dark:text-gray-300">Backup Status</label>
                             <p id="backup-status-label" class="mt-1 text-sm text-gray-500 dark:text-gray-400">Idle</p>
                         </div>
-                        <div>
-                            <label class="font-medium text-sm text-gray-700 dark:text-gray-300">Sync Status</label>
-                            <p id="sync-status-label" class="mt-1 text-sm text-gray-500 dark:text-gray-400">Not Synced</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
-                        <button id="force-sync-btn" class="w-full text-center p-3 rounded-lg font-semibold transition-colors bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">Force Sync</button>
                         <button id="full-backup-btn" class="w-full text-center p-3 rounded-lg font-semibold transition-colors bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">Backup to iCloud</button>
-                        <button id="restore-backup-btn" class="w-full text-center p-3 rounded-lg font-semibold transition-colors bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">Restore Latest from iCloud</button>
+                        <button id="restore-backup-btn" class="w-full text-center p-3 rounded-lg font-semibold transition-colors bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">Restore Backup</button>
                         <button id="full-csv-export-btn" class="w-full text-center p-3 rounded-lg font-semibold transition-colors bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">Export All as CSV</button>
                     </div>
                     <p id="data-op-status" class="text-sm text-green-600 dark:text-green-400 mt-4 h-5"></p>
@@ -1002,21 +989,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------------------------------------------
     // STATE MANAGEMENT & GLOBAL VARIABLES
     // -----------------------------------------------------------------------------
+    const DEFAULT_USER_SETTINGS = {
+        baseAnnualLeave: 35,
+        normalWorkMinutes: 540,
+        backupSchedule: 'manual',
+        lastCloudBackupAt: null
+    };
+
     let user = null;
     let currentDate = new Date();
     let workData = {};
     let reminders = [];
-    const DEFAULT_USER_SETTINGS = {
-        baseAnnualLeave: 35,
-        normalWorkMinutes: 540, // 9 hours
-        icloudEmail: '',
-        icloudConnected: false,
-        backupSchedule: 'manual',
-        lastCloudBackupAt: null
-    };
     let userSettings = { ...DEFAULT_USER_SETTINGS };
-    let isInitialLoad = true;
     let autoBackupTimerId = null;
+    let isInitialLoad = true;
     
     // Chart and Map instances
     let leaveReasonChartInstance = null;
@@ -1189,13 +1175,9 @@ document.addEventListener('DOMContentLoaded', () => {
         normalizeText(data.leaveStatus) === 'yes' && normalizeText(data.leaveReason) === 'own leave'
     );
 
-    const isPublicHolidayRecord = (data = {}) => {
-        const leaveStatusYes = normalizeText(data.leaveStatus) === 'yes';
-        const leaveReasonPublicHoliday = normalizeText(data.leaveReason) === 'public holiday';
-        const specialDayPublicHoliday = normalizeText(data.specialDays) === 'public holiday';
-
-        return (leaveStatusYes && leaveReasonPublicHoliday) || specialDayPublicHoliday;
-    };
+    const isPublicHolidayLeaveRecord = (data = {}) => (
+        normalizeText(data.leaveStatus) === 'yes' && normalizeText(data.leaveReason) === 'public holiday'
+    );
 
     const getMonthStats = (year, month) => {
         const monthPrefix = `${year}-${month}`;
@@ -1213,17 +1195,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Only count stats for past and present days
                 if (entryDate > today) return; 
 
-                const { totalHours, otHours } = calculateDayHoursAndOT(data, year, month, day);
+                const { otHours } = calculateDayHoursAndOT(data, year, month, day);
+
                 if (data && data.inTime) {
                     totalPresentDays++;
                 }
 
                 totalMonthOtHours += otHours;
-
+            
                 if (isOwnLeaveRecord(data)) {
                     ownLeaves++;
                 }
-                if (isPublicHolidayRecord(data) && !isOwnLeaveRecord(data)) {
+                if (isPublicHolidayLeaveRecord(data)) {
                     publicHolidayLeaveDays++;
                 }
             }
@@ -1648,7 +1631,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveLocalData = () => {
         localStorage.setItem('workData', JSON.stringify(workData));
         localStorage.setItem('reminders', JSON.stringify(reminders));
-        localStorage.setItem('userSettings', JSON.stringify(userSettings));
     };
 
     const clearDayData = (day) => {
@@ -1748,341 +1730,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const addSummaryEventListeners = () => {
-        document.getElementById('clear-month-btn').onclick = handleClearMonthData;
-        document.getElementById('backup-btn').onclick = () => handleBackup(currentDate.getFullYear(), currentDate.getMonth());
-        document.getElementById('restore-file-input').onchange = handleRestore;
-    };
-
-    const showDataOperationStatus = (message, isError = false) => {
-        const statusEl = document.getElementById('data-op-status');
-        if (!statusEl) {
-            if (isError) alert(message);
-            return;
-        }
-
-        statusEl.textContent = message;
-        statusEl.className = `text-sm mt-4 h-5 ${isError ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`;
-        setTimeout(() => {
-            statusEl.textContent = '';
-            statusEl.className = 'text-sm text-green-600 dark:text-green-400 mt-4 h-5';
-        }, 4000);
-    };
-
-    const formatBackupDateTime = (isoDate) => {
-        if (!isoDate) return 'Never';
-        const dt = new Date(isoDate);
-        if (Number.isNaN(dt.getTime())) return 'Never';
-        return dt.toLocaleString();
-    };
-
-    const setBackupStatusLabel = (message, isError = false) => {
-        const el = document.getElementById('backup-status-label');
-        if (!el) return;
-        el.textContent = message;
-        el.className = `mt-1 text-sm ${isError ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`;
-    };
-
-    const setSyncStatusLabel = (message, isError = false) => {
-        const el = document.getElementById('sync-status-label');
-        if (!el) return;
-        el.textContent = message;
-        el.className = `mt-1 text-sm ${isError ? 'text-red-600 dark:text-red-400' : 'text-gray-500 dark:text-gray-400'}`;
-    };
-
-    const normalizeCloudError = (error, fallbackMessage) => {
-        if (!navigator.onLine) return 'No internet connection. Please check your network and try again.';
-        const code = error?.code || '';
-        if (code.includes('permission-denied')) return 'Permission denied. Please sign in again and verify your account access.';
-        if (code.includes('unauthenticated')) return 'Authentication expired. Please sign in again.';
-        if (code.includes('unavailable')) return 'Cloud service unavailable right now. Please retry in a moment.';
-        if (code.includes('failed-precondition')) return 'Cloud backup configuration is incomplete. Please check Firebase indexes/rules.';
-        return fallbackMessage || 'Cloud operation failed. Please try again.';
-    };
-
-    const promptRetry = (message, retryFn) => {
-        const shouldRetry = window.confirm(`${message}\n\nDo you want to retry now?`);
-        if (shouldRetry && typeof retryFn === 'function') {
-            retryFn();
-        }
-    };
-
-    const getBackupIntervalMs = (schedule) => {
-        if (schedule === 'daily') return 24 * 60 * 60 * 1000;
-        if (schedule === 'weekly') return 7 * 24 * 60 * 60 * 1000;
-        if (schedule === 'monthly') return 30 * 24 * 60 * 60 * 1000;
-        return null;
-    };
-
-    const stabilizeScrollRegion = (container) => {
-        if (!container || container.dataset.scrollStable === '1') return;
-        container.dataset.scrollStable = '1';
-
-        container.addEventListener('wheel', (event) => {
-            const { scrollTop, scrollHeight, clientHeight } = container;
-            const atTop = scrollTop <= 0;
-            const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
-
-            if ((event.deltaY < 0 && atTop) || (event.deltaY > 0 && atBottom)) {
-                event.preventDefault();
-            }
-            event.stopPropagation();
-        }, { passive: false });
-
-        container.addEventListener('touchmove', (event) => {
-            event.stopPropagation();
-        }, { passive: true });
-    };
-
-    const formatDateForBackupFile = (date = new Date()) => {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-
-    const getAppLocalStorageSnapshot = () => {
-        const snapshot = {};
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            snapshot[key] = localStorage.getItem(key);
-        }
-        return snapshot;
-    };
-
-    const getUserBackupsCollection = () => {
-        if (!user) throw new Error('User not authenticated.');
-        return db.collection('users').doc(user.uid).collection('backups');
-    };
-
-    const createBackup = ({ scope = 'all', year = currentDate.getFullYear(), month = currentDate.getMonth() } = {}) => {
-        const localWorkData = JSON.parse(localStorage.getItem('workData') || '{}');
-        const localReminders = JSON.parse(localStorage.getItem('reminders') || '[]');
-        const localSettings = JSON.parse(localStorage.getItem('userSettings') || '{}');
-        const sourceWorkData = Object.keys(localWorkData).length > 0 ? localWorkData : workData;
-
-        const monthPrefix = `${year}-${month}`;
-        const selectedWorkData = scope === 'month'
-            ? Object.keys(sourceWorkData)
-                .filter(key => key.startsWith(monthPrefix))
-                .reduce((obj, key) => {
-                    obj[key] = sourceWorkData[key];
-                    return obj;
-                }, {})
-            : { ...sourceWorkData };
-
-        const backupPayload = {
-            schemaVersion: 1,
-            backupType: scope,
-            createdAt: new Date().toISOString(),
-            metadata: {
-                app: 'Work Report Leave System',
-                exportedBy: user?.email || 'local-user',
-                exportedDate: formatDateForBackupFile()
-            },
-            workData: selectedWorkData,
-            reminders: Array.isArray(localReminders) ? localReminders : reminders,
-            settings: { ...DEFAULT_USER_SETTINGS, ...userSettings, ...localSettings },
-            theme: localStorage.getItem('theme') || 'light',
-            localStorageSnapshot: getAppLocalStorageSnapshot(),
-            dashboardStats: {
-                currentMonth: getMonthStats(year, month),
-                annual: calculateAnnualLeaveStats()
-            }
-        };
-
-        return backupPayload;
-    };
-
-    const downloadBackup = (backupData, fileName = `leave-system-backup-${formatDateForBackupFile()}.json`) => {
-        const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    };
-    const downloadBackupFile = downloadBackup;
-
-    const validateBackupFile = (parsedData) => {
-        if (!parsedData || typeof parsedData !== 'object' || Array.isArray(parsedData)) {
-            return { valid: false, error: 'Invalid backup format.' };
-        }
-
-        const hasWorkData = typeof parsedData.workData === 'object' && parsedData.workData !== null && !Array.isArray(parsedData.workData);
-        const looksLikeLegacyMonthBackup = Object.keys(parsedData).every(key => /^\d{4}-\d{1,2}-\d{1,2}$/.test(key));
-
-        if (!hasWorkData && !looksLikeLegacyMonthBackup) {
-            return { valid: false, error: 'Backup file is corrupted or unsupported.' };
-        }
-
-        if (hasWorkData && parsedData.reminders && !Array.isArray(parsedData.reminders)) {
-            return { valid: false, error: 'Backup reminders format is invalid.' };
-        }
-        if (hasWorkData && parsedData.localStorageSnapshot && typeof parsedData.localStorageSnapshot !== 'object') {
-            return { valid: false, error: 'Backup localStorage snapshot format is invalid.' };
-        }
-
-        return { valid: true, isLegacy: looksLikeLegacyMonthBackup };
-    };
-
-    const loadBackupData = (backupData, { replaceExisting = true, isLegacy = false } = {}) => {
-        const incomingWorkData = isLegacy ? backupData : (backupData.workData || {});
-        const mergedWorkData = replaceExisting ? incomingWorkData : { ...workData, ...incomingWorkData };
-
-        workData = mergedWorkData;
-        reminders = isLegacy
-            ? reminders
-            : (Array.isArray(backupData.reminders) ? backupData.reminders : []);
-
-        if (!isLegacy && backupData.settings && typeof backupData.settings === 'object') {
-            userSettings = { ...DEFAULT_USER_SETTINGS, ...backupData.settings };
-        }
-
-        if (!isLegacy && backupData.localStorageSnapshot && typeof backupData.localStorageSnapshot === 'object') {
-            Object.entries(backupData.localStorageSnapshot).forEach(([key, value]) => {
-                if (value === null || value === undefined) {
-                    localStorage.removeItem(key);
-                } else {
-                    localStorage.setItem(key, String(value));
-                }
-            });
-        }
-
-        if (!isLegacy && backupData.theme) {
-            applyTheme(backupData.theme === 'dark' ? 'dark' : 'light');
-        }
-
-        localStorage.setItem('workData', JSON.stringify(workData));
-        localStorage.setItem('reminders', JSON.stringify(reminders));
-        localStorage.setItem('userSettings', JSON.stringify(userSettings));
-
-        if (user) {
-            syncToCloud();
-        }
-
-        renderAll();
-        if (dashboardPage.style.display === 'block') renderDashboard();
-        if (settingsPage.style.display === 'block') renderSettingsPage();
-    };
-
-    const restoreBackup = (file, { replaceExisting = true, requireConfirmation = true } = {}) => new Promise((resolve, reject) => {
-        if (!file) {
-            reject(new Error('No backup file selected.'));
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            try {
-                const parsedData = JSON.parse(event.target.result);
-                const validation = validateBackupFile(parsedData);
-
-                if (!validation.valid) {
-                    reject(new Error(validation.error));
-                    return;
-                }
-
-                if (requireConfirmation && !window.confirm('This will replace your existing data. Continue restore?')) {
-                    reject(new Error('Restore cancelled.'));
-                    return;
-                }
-
-                loadBackupData(parsedData, { replaceExisting, isLegacy: validation.isLegacy });
-                resolve(validation);
-            } catch (error) {
-                reject(new Error('Invalid JSON backup file.'));
-            }
-        };
-        reader.onerror = () => reject(new Error('Failed to read backup file.'));
-        reader.readAsText(file);
-    });
-
-    const runScheduledCloudBackupIfDue = async () => {
-        if (!user || !userSettings.icloudConnected) return;
-        const interval = getBackupIntervalMs(userSettings.backupSchedule);
-        if (!interval) return;
-
-        const lastBackupTime = userSettings.lastCloudBackupAt ? new Date(userSettings.lastCloudBackupAt).getTime() : 0;
-        const now = Date.now();
-        if ((now - lastBackupTime) >= interval) {
-            try {
-                await performCloudBackup({ source: 'scheduled', silent: true });
-                setBackupStatusLabel('Scheduled Backup Success');
-            } catch (error) {
-                console.error(error);
-                setBackupStatusLabel('Scheduled Backup Failed', true);
-            }
-        }
-    };
-
-    const scheduleAutomaticBackupChecker = () => {
-        if (autoBackupTimerId) {
-            clearInterval(autoBackupTimerId);
-            autoBackupTimerId = null;
-        }
-
-        if (!user || !userSettings.icloudConnected || !getBackupIntervalMs(userSettings.backupSchedule)) return;
-        autoBackupTimerId = setInterval(() => {
-            runScheduledCloudBackupIfDue().catch(err => console.error('Scheduled backup failed:', err));
-        }, 5 * 60 * 1000);
-    };
-
-    const performCloudBackup = async ({ source = 'manual', silent = false } = {}) => {
-        if (!user) throw new Error('Please sign in before cloud backup.');
-        if (!userSettings.icloudConnected || !userSettings.icloudEmail) {
-            throw new Error('Connect your iCloud account first.');
-        }
-        const backupPayload = createBackup({ scope: 'all' });
-        backupPayload.cloudAccount = userSettings.icloudEmail;
-        backupPayload.backupSource = source;
-        backupPayload.userId = user.uid;
-
-        const timestamp = new Date().toISOString();
-        await getUserBackupsCollection().add({
-            userId: user.uid,
-            backupDate: firebase.firestore.FieldValue.serverTimestamp(),
-            backupDateISO: timestamp,
-            backupData: backupPayload
-        });
-
-        userSettings.lastCloudBackupAt = timestamp;
-        localStorage.setItem('userSettings', JSON.stringify(userSettings));
-        await db.collection('users').doc(user.uid).set({ settings: userSettings }, { merge: true });
-
-        setBackupStatusLabel('Success');
-        if (!silent) {
-            showDataOperationStatus('Backup saved to cloud successfully.');
-        }
-        if (settingsPage.style.display === 'block') renderSettingsPage();
-    };
-
-    const restoreLatestCloudBackup = async () => {
-        if (!user) throw new Error('Please sign in before restore.');
-        if (!userSettings.icloudConnected) throw new Error('Connect your iCloud account first.');
-        const snapshot = await getUserBackupsCollection()
-            .orderBy('backupDate', 'desc')
-            .limit(1)
-            .get();
-
-        if (snapshot.empty) throw new Error('No cloud backups found.');
-
-        const latestDoc = snapshot.docs[0];
-        const latestData = latestDoc.data() || {};
-        const latestTimestamp = latestData.backupDateISO || '';
-        const latestBackup = latestData.backupData;
-        const validation = validateBackupFile(latestBackup || {});
-        if (!validation.valid) throw new Error('Latest cloud backup is corrupted.');
-
-        if (!window.confirm(`Restore latest cloud backup from ${formatBackupDateTime(latestTimestamp)}? This will replace your current data.`)) {
-            throw new Error('Restore cancelled.');
-        }
-
-        loadBackupData(latestBackup, { replaceExisting: true, isLegacy: validation.isLegacy });
-        showDataOperationStatus('Latest cloud backup restored successfully.');
-        setBackupStatusLabel('Restored');
+        document.getElementById('clear-month-btn').addEventListener('click', handleClearMonthData);
+        document.getElementById('backup-btn').addEventListener('click', () => handleBackup(currentDate.getFullYear(), currentDate.getMonth()));
+        document.getElementById('restore-file-input').addEventListener('change', handleRestore);
     };
 
     // ACTION HANDLERS
@@ -2123,31 +1773,189 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
-    const handleBackup = (year, month) => {
-        const backupPayload = createBackup({ scope: 'month', year, month });
-        if (Object.keys(backupPayload.workData).length === 0) {
-            alert("No data for this month to backup.");
+    const showDataOperationStatus = (message, isError = false) => {
+        const statusEl = document.getElementById('data-op-status');
+        if (!statusEl) {
+            if (isError) alert(message);
+            return;
+        }
+        statusEl.textContent = message;
+        statusEl.className = `text-sm mt-4 h-5 ${isError ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`;
+        setTimeout(() => {
+            statusEl.textContent = '';
+            statusEl.className = 'text-sm text-green-600 dark:text-green-400 mt-4 h-5';
+        }, 4500);
+    };
+
+    const setBackupStatusLabel = (message, isError = false) => {
+        const el = document.getElementById('backup-status-label');
+        if (!el) return;
+        el.textContent = message;
+        el.className = `mt-1 text-sm ${isError ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`;
+    };
+
+    const formatBackupDateTime = (isoDate) => {
+        if (!isoDate) return 'Never';
+        const dt = new Date(isoDate);
+        if (Number.isNaN(dt.getTime())) return 'Never';
+        return dt.toLocaleString();
+    };
+
+    const formatDateForBackupFile = (date = new Date()) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const getAppLocalStorageSnapshot = () => {
+        const snapshot = {};
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            snapshot[key] = localStorage.getItem(key);
+        }
+        return snapshot;
+    };
+
+    const createBackup = ({ scope = 'all', year = currentDate.getFullYear(), month = currentDate.getMonth() } = {}) => {
+        const monthPrefix = `${year}-${month}`;
+        const selectedWorkData = scope === 'month'
+            ? Object.keys(workData).filter(key => key.startsWith(monthPrefix)).reduce((obj, key) => {
+                obj[key] = workData[key];
+                return obj;
+            }, {})
+            : { ...workData };
+
+        return {
+            schemaVersion: 1,
+            backupType: scope,
+            backupDate: new Date().toISOString(),
+            userId: user?.uid || null,
+            metadata: {
+                app: 'Work Report Leave System',
+                exportedDate: formatDateForBackupFile()
+            },
+            workData: selectedWorkData,
+            reminders: Array.isArray(reminders) ? reminders : [],
+            settings: { ...DEFAULT_USER_SETTINGS, ...userSettings },
+            theme: localStorage.getItem('theme') || 'light',
+            localStorageSnapshot: getAppLocalStorageSnapshot(),
+            dashboardStats: {
+                currentMonth: getMonthStats(year, month),
+                annual: calculateAnnualLeaveStats()
+            }
+        };
+    };
+
+    const downloadBackup = (backupData, fileName = `leave-system-backup-${formatDateForBackupFile()}.json`) => {
+        const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+    const downloadBackupFile = downloadBackup;
+
+    const validateBackupFile = (parsedData) => {
+        if (!parsedData || typeof parsedData !== 'object' || Array.isArray(parsedData)) {
+            return { valid: false, error: 'Invalid backup format.' };
+        }
+
+        const hasWorkData = typeof parsedData.workData === 'object' && parsedData.workData !== null && !Array.isArray(parsedData.workData);
+        const isLegacy = Object.keys(parsedData).every(key => /^\d{4}-\d{1,2}-\d{1,2}$/.test(key));
+
+        if (!hasWorkData && !isLegacy) {
+            return { valid: false, error: 'Backup file is corrupted or unsupported.' };
+        }
+        if (hasWorkData && parsedData.reminders && !Array.isArray(parsedData.reminders)) {
+            return { valid: false, error: 'Backup reminders format is invalid.' };
+        }
+        if (hasWorkData && parsedData.localStorageSnapshot && typeof parsedData.localStorageSnapshot !== 'object') {
+            return { valid: false, error: 'Backup localStorage snapshot format is invalid.' };
+        }
+        return { valid: true, isLegacy };
+    };
+
+    const loadBackupData = (backupData, { replaceExisting = true, isLegacy = false } = {}) => {
+        const incomingWorkData = isLegacy ? backupData : (backupData.workData || {});
+        workData = replaceExisting ? incomingWorkData : { ...workData, ...incomingWorkData };
+        reminders = isLegacy ? reminders : (Array.isArray(backupData.reminders) ? backupData.reminders : []);
+        userSettings = isLegacy ? userSettings : { ...DEFAULT_USER_SETTINGS, ...(backupData.settings || {}) };
+
+        if (!isLegacy && backupData.localStorageSnapshot && typeof backupData.localStorageSnapshot === 'object') {
+            Object.entries(backupData.localStorageSnapshot).forEach(([key, value]) => {
+                if (value === null || value === undefined) localStorage.removeItem(key);
+                else localStorage.setItem(key, String(value));
+            });
+        }
+
+        if (!isLegacy && backupData.theme) {
+            applyTheme(backupData.theme === 'dark' ? 'dark' : 'light');
+        }
+
+        localStorage.setItem('workData', JSON.stringify(workData));
+        localStorage.setItem('reminders', JSON.stringify(reminders));
+        localStorage.setItem('userSettings', JSON.stringify(userSettings));
+
+        if (user) syncToCloud();
+        renderAll();
+        if (dashboardPage.style.display === 'block') renderDashboard();
+        if (settingsPage.style.display === 'block') renderSettingsPage();
+    };
+
+    const restoreBackup = (file, { replaceExisting = true, requireConfirmation = true } = {}) => new Promise((resolve, reject) => {
+        if (!file) {
+            reject(new Error('No backup file selected.'));
             return;
         }
 
-        const fileName = `leave-month-backup-${year}-${String(month + 1).padStart(2, '0')}.json`;
-        downloadBackup(backupPayload, fileName);
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const parsedData = JSON.parse(event.target.result);
+                const validation = validateBackupFile(parsedData);
+                if (!validation.valid) {
+                    reject(new Error(validation.error));
+                    return;
+                }
+                if (requireConfirmation && !window.confirm('This will replace your existing data. Continue restore?')) {
+                    reject(new Error('Restore cancelled.'));
+                    return;
+                }
+
+                loadBackupData(parsedData, { replaceExisting, isLegacy: validation.isLegacy });
+                resolve(validation);
+            } catch (error) {
+                reject(new Error('Invalid JSON backup file.'));
+            }
+        };
+        reader.onerror = () => reject(new Error('Failed to read backup file.'));
+        reader.readAsText(file);
+    });
+
+    const handleBackup = (year, month) => {
+        const backupPayload = createBackup({ scope: 'month', year, month });
+        if (Object.keys(backupPayload.workData).length === 0) {
+            alert('No data for this month to backup.');
+            return;
+        }
+        downloadBackupFile(backupPayload, `leave-month-backup-${year}-${String(month + 1).padStart(2, '0')}.json`);
         showDataOperationStatus('Month backup exported successfully.');
     };
 
     const handleRestore = (e) => {
         const file = e.target.files[0];
         if (!file) return;
-
         restoreBackup(file, { replaceExisting: false, requireConfirmation: false })
             .then(() => showDataOperationStatus('Backup data imported successfully.'))
-            .catch((err) => {
-                if (err.message !== 'Restore cancelled.') {
-                    showDataOperationStatus(err.message, true);
-                }
+            .catch((err) => showDataOperationStatus(err.message, true))
+            .finally(() => {
+                e.target.value = '';
             });
-
-        e.target.value = '';
     };
 
     const scrollToToday = () => {
@@ -2202,6 +2010,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        document.getElementById('apple-signin-btn').addEventListener('click', async () => {
+            const provider = new firebase.auth.OAuthProvider('apple.com');
+            provider.addScope('email');
+            provider.addScope('name');
+            try {
+                await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+                await auth.signInWithPopup(provider);
+            } catch (e) {
+                document.getElementById('signin-error').textContent = e.message;
+            }
+        });
     };
 
     const addSignupEventListeners = () => {
@@ -2248,7 +2067,6 @@ document.addEventListener('DOMContentLoaded', () => {
             auth.signOut().then(() => {
                 localStorage.removeItem('workData');
                 localStorage.removeItem('reminders');
-                localStorage.removeItem('userSettings');
                 isInitialLoad = true;
                 closeModal();
                 // onAuthStateChanged will handle UI switch
@@ -2621,22 +2439,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const content = `
             <div class="space-y-4">
                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                    Speak in Tamil or type in Tanglish (Tamil + English). The AI will convert it into polished English in your selected style.
+                    Speak or type your leave reason in Tanglish (Tamil + English). The AI will convert it into a professional English message.
                 </p>
-                <div>
-                    <label for="ai-style" class="font-medium text-sm text-gray-700 dark:text-gray-300">Writing Style</label>
-                    <select id="ai-style" class="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50/50 transition duration-200 premium-select dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200">
-                        <option value="professional">Professional</option>
-                        <option value="office">Office</option>
-                        <option value="formal">Formal</option>
-                        <option value="casual">Casual</option>
-                        <option value="funny">Funny</option>
-                    </select>
-                </div>
                 <div>
                     <div class="flex justify-between items-center mb-1.5">
                         <label for="ai-input" class="font-medium text-sm text-gray-700 dark:text-gray-300">Your Message</label>
-                        <button id="voice-input-btn" title="Speak in Tamil" class="p-1.5 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 rounded-full transition-colors">
+                        <button id="voice-input-btn" title="Speak your message" class="p-1.5 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 rounded-full transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
                         </button>
                     </div>
@@ -2644,7 +2452,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div id="ai-error-container" class="hidden text-sm text-red-600 dark:text-red-400 mt-2 p-3 bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-800/50"></div>
                 <button id="generate-ai-message-btn" class="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm shadow-sm transition-all duration-200 transform hover:scale-[1.03] bg-blue-600 text-white hover:bg-blue-700">
-                    <span>Convert to English</span>
+                    <span>Convert to Professional English</span>
                     <div id="ai-spinner" class="loader-small hidden"></div>
                 </button>
                 <div id="ai-output-container" class="hidden space-y-2 pt-4 border-t border-gray-200 dark:border-gray-700">
@@ -2668,7 +2476,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const voiceBtn = document.getElementById('voice-input-btn');
         const copyBtn = document.getElementById('copy-ai-output-btn');
         const errorContainer = document.getElementById('ai-error-container');
-        const styleEl = document.getElementById('ai-style');
 
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SpeechRecognition) {
@@ -2677,9 +2484,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const recognition = new SpeechRecognition();
             recognition.lang = 'ta-IN';
             recognition.interimResults = true;
-            recognition.continuous = false;
+            recognition.continuous = true;
             let isListening = false;
-            let baseInputSnapshot = '';
 
             recognition.onresult = (event) => {
                 let interimTranscript = '';
@@ -2691,14 +2497,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         interimTranscript += event.results[i][0].transcript;
                     }
                 }
-                inputEl.value = `${baseInputSnapshot} ${finalTranscript}${interimTranscript}`.trim();
+                inputEl.value = finalTranscript + interimTranscript;
             };
 
-            recognition.onstart = () => {
-                isListening = true;
-                baseInputSnapshot = inputEl.value.trim();
-                voiceBtn.classList.add('voice-btn-listening');
-            };
+            recognition.onstart = () => { isListening = true; voiceBtn.classList.add('voice-btn-listening'); };
             recognition.onend = () => { isListening = false; voiceBtn.classList.remove('voice-btn-listening'); };
             recognition.onerror = (event) => {
                 isListening = false;
@@ -2729,7 +2531,7 @@ document.addEventListener('DOMContentLoaded', () => {
             generateBtn.disabled = true;
 
             try {
-                const result = await window.generateProfessionalMessage(userInput, styleEl.value);
+                const result = await window.generateProfessionalMessage(userInput);
                 outputEl.textContent = result;
                 outputContainer.classList.remove('hidden');
             } catch (error) {
@@ -2910,11 +2712,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             let statusClass = 'bg-gray-100 dark:bg-gray-800/50';
             const isDayWeekend = isWeekend(year, month, day);
-            const isSpecial = dayData.specialDays === "Poya Day" || dayData.specialDays === "Public Holiday";
+            const isSpecial = normalizeText(dayData.specialDays) === 'public holiday';
 
             if (isOwnLeaveRecord(dayData)) {
                 statusClass = 'heatmap-leave-own';
-            } else if (isPublicHolidayRecord(dayData) || isSpecial) {
+            } else if (isPublicHolidayLeaveRecord(dayData) || isSpecial) {
                 statusClass = 'heatmap-public-holiday';
             } else if (dayData.inTime) {
                 statusClass = 'heatmap-present';
@@ -2974,6 +2776,15 @@ document.addEventListener('DOMContentLoaded', () => {
         content += '</div>';
 
         openModal(createModal(title, content, 'heatmap-detail-modal', 'max-w-sm'));
+    };
+
+    const stabilizeScrollRegion = (container) => {
+        if (!container || container.dataset.scrollStable === '1') return;
+        container.dataset.scrollStable = '1';
+
+        container.addEventListener('wheel', (event) => {
+            event.stopPropagation();
+        }, { passive: true });
     };
 
     const renderUpcomingEvents = () => {
@@ -3100,7 +2911,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cumulativeOwnLeaves++;
             }
 
-            if (isPublicHolidayRecord(data)) {
+            if (isPublicHolidayLeaveRecord(data)) {
                 cumulativePublicLeaves++;
             }
 
@@ -3227,17 +3038,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const day = parseInt(key.split('-')[2], 10);
             const formattedDate = `${months[month]} ${day}`;
 
-            if (isPublicHolidayRecord(data)) {
-                const hasWorkHours = data.inTime && data.outTime;
-                const { totalHours } = calculateDayHoursAndOT(data, year, month, day);
-                const customDetail = (data.leaveReasonText || data.customReasonDetails || '').trim();
-                let reason = customDetail || 'Public Holiday';
-
-                if (!customDetail && hasWorkHours) {
-                    reason = `Public Holiday (${totalHours.toFixed(1)} OT hrs)`;
-                }
-
-                details.push({ date: formattedDate, reason });
+            if (isPublicHolidayLeaveRecord(data)) {
+                const detailsText = (data.leaveReasonText || data.customReasonDetails || data.specialDays || 'Public Holiday').trim();
+                details.push({ date: formattedDate, reason: detailsText });
             }
         });
 
@@ -3281,14 +3084,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Preferences
         document.getElementById('settings-leave-allowance').value = userSettings.baseAnnualLeave || 35;
         document.getElementById('settings-work-hours').value = (userSettings.normalWorkMinutes || 540) / 60;
-        document.getElementById('settings-icloud-email').value = userSettings.icloudEmail || '';
         document.getElementById('settings-backup-schedule').value = userSettings.backupSchedule || 'manual';
         document.getElementById('last-cloud-backup-at').textContent = formatBackupDateTime(userSettings.lastCloudBackupAt);
-        document.getElementById('icloud-connection-status').textContent = userSettings.icloudConnected
-            ? `Connected as ${userSettings.icloudEmail || user.email}`
-            : 'Not connected';
         setBackupStatusLabel('Idle');
-        setSyncStatusLabel(user ? 'Cloud Synced' : 'Not Synced');
         
         addSettingsEventListeners();
     };
@@ -3301,7 +3099,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('full-backup-btn').onclick = handleFullBackup;
         document.getElementById('restore-backup-btn').onclick = showRestoreModal;
         document.getElementById('full-csv-export-btn').onclick = handleFullCSVExport;
-        document.getElementById('connect-icloud-btn').onclick = handleConnectIcloudAccount;
         document.getElementById('settings-backup-schedule').onchange = handleBackupScheduleChange;
     };
 
@@ -3338,11 +3135,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const statusEl = document.getElementById('preferences-save-status');
         const newAllowance = parseInt(document.getElementById('settings-leave-allowance').value, 10);
         const newHours = parseFloat(document.getElementById('settings-work-hours').value);
-        const backupSchedule = document.getElementById('settings-backup-schedule').value;
 
         userSettings.baseAnnualLeave = newAllowance;
         userSettings.normalWorkMinutes = newHours * 60;
-        userSettings.backupSchedule = backupSchedule;
+        localStorage.setItem('userSettings', JSON.stringify(userSettings));
 
         statusEl.textContent = 'Saving...';
         statusEl.className = 'text-sm text-gray-500 dark:text-gray-400 flex items-center';
@@ -3357,7 +3153,6 @@ document.addEventListener('DOMContentLoaded', () => {
             renderDashboard(); // Re-render dashboard with new settings
             if(reportPage.style.display === 'block') renderAll();
             scheduleAutomaticBackupChecker();
-            runScheduledCloudBackupIfDue().catch(err => console.error('Scheduled backup check failed:', err));
 
         } catch (error) {
             statusEl.textContent = 'Error saving preferences.';
@@ -3367,64 +3162,10 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => statusEl.textContent = '', 3000);
     };
 
-    const handleConnectIcloudAccount = async () => {
-        if (!user) {
-            showDataOperationStatus('Please sign in before connecting cloud backup.', true);
-            return;
-        }
-        const emailInput = document.getElementById('settings-icloud-email');
-        const statusEl = document.getElementById('icloud-connection-status');
-        const icloudEmail = emailInput.value.trim();
-
-        if (!icloudEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(icloudEmail)) {
-            statusEl.textContent = 'Enter a valid Apple ID email.';
-            statusEl.className = 'text-sm text-red-600 dark:text-red-400';
-            return;
-        }
-
-        userSettings.icloudEmail = icloudEmail;
-        userSettings.icloudConnected = true;
-        localStorage.setItem('userSettings', JSON.stringify(userSettings));
-
-        try {
-            if (user) {
-                await db.collection('users').doc(user.uid).set({ settings: userSettings }, { merge: true });
-            }
-            statusEl.textContent = `Connected as ${icloudEmail}`;
-            statusEl.className = 'text-sm text-green-600 dark:text-green-400';
-            showDataOperationStatus('Cloud account connected.');
-            scheduleAutomaticBackupChecker();
-            runScheduledCloudBackupIfDue().catch(err => console.error('Scheduled backup check failed:', err));
-        } catch (error) {
-            console.error(error);
-            statusEl.textContent = 'Failed to connect cloud account.';
-            statusEl.className = 'text-sm text-red-600 dark:text-red-400';
-        }
-    };
-
-    const handleBackupScheduleChange = async () => {
-        const schedule = document.getElementById('settings-backup-schedule').value;
-        userSettings.backupSchedule = schedule;
-        localStorage.setItem('userSettings', JSON.stringify(userSettings));
-
-        try {
-            if (user) {
-                await db.collection('users').doc(user.uid).set({ settings: userSettings }, { merge: true });
-            }
-            showDataOperationStatus(`Backup schedule updated: ${schedule}.`);
-            scheduleAutomaticBackupChecker();
-            runScheduledCloudBackupIfDue().catch(err => console.error('Scheduled backup check failed:', err));
-        } catch (error) {
-            console.error(error);
-            showDataOperationStatus('Failed to update backup schedule.', true);
-        }
-    };
-
     const handleForceSync = async () => {
         if (!user) return;
         const statusEl = document.getElementById('data-op-status');
         statusEl.textContent = 'Syncing...';
-        setSyncStatusLabel('Syncing...');
         try {
             const userRef = db.collection('users').doc(user.uid);
             const doc = await userRef.get();
@@ -3436,52 +3177,204 @@ document.addEventListener('DOMContentLoaded', () => {
             renderAll();
             renderDashboard();
             if (settingsPage.style.display === 'block') renderSettingsPage();
-            scheduleAutomaticBackupChecker();
-            runScheduledCloudBackupIfDue().catch(err => console.error('Scheduled backup check failed:', err));
-            setSyncStatusLabel('Cloud Synced');
         } catch(e) {
             statusEl.textContent = 'Sync failed.';
             console.error(e);
-            setSyncStatusLabel('Sync Failed', true);
         }
         setTimeout(() => statusEl.textContent = '', 3000);
     }
     
-    const handleFullBackup = () => {
-        setBackupStatusLabel('In Progress...');
-        performCloudBackup({ source: 'manual' }).catch((error) => {
-            console.error(error);
-            const message = normalizeCloudError(error, error.message || 'Cloud backup failed. Please try again.');
+    const normalizeCloudError = (error, fallbackMessage) => {
+        if (!navigator.onLine) return 'No internet connection. Please check your network and try again.';
+        const code = error?.code || '';
+        if (code.includes('permission-denied')) return 'Permission denied. Please sign in again to continue backup.';
+        if (code.includes('unauthenticated')) return 'Please sign in again to continue backup.';
+        if (code.includes('unavailable')) return 'Cloud service is unavailable right now. Please retry.';
+        return fallbackMessage || 'Cloud operation failed. Please try again.';
+    };
+
+    const getBackupIntervalMs = (schedule) => {
+        if (schedule === 'daily') return 24 * 60 * 60 * 1000;
+        if (schedule === 'weekly') return 7 * 24 * 60 * 60 * 1000;
+        if (schedule === 'monthly') return 30 * 24 * 60 * 60 * 1000;
+        return null;
+    };
+
+    const getUserBackupsCollection = () => {
+        if (!user) throw new Error('Please sign in before backup.');
+        return db.collection('users').doc(user.uid).collection('backups');
+    };
+
+    const ensureFreshAuth = async () => {
+        if (!user) throw new Error('Please sign in before backup.');
+        try {
+            await user.getIdToken(true);
+        } catch (error) {
+            throw new Error('Please sign in again to continue backup.');
+        }
+    };
+
+    const requestReauthAndRetry = async (retryFn) => {
+        const reauthConfirmed = window.confirm('Please sign in again to continue backup.\n\nDo you want to sign out now and sign in again?');
+        if (!reauthConfirmed) return;
+        await auth.signOut();
+        showDataOperationStatus('Signed out. Please sign in again to continue backup.', true);
+        if (typeof retryFn === 'function') {
+            const resumeToken = setInterval(() => {
+                if (user) {
+                    clearInterval(resumeToken);
+                    retryFn();
+                }
+            }, 1500);
+            setTimeout(() => clearInterval(resumeToken), 120000);
+        }
+    };
+
+    const performCloudBackup = async ({ source = 'manual' } = {}) => {
+        await ensureFreshAuth();
+
+        const timestamp = new Date().toISOString();
+        const backupPayload = createBackup({ scope: 'all' });
+        backupPayload.userId = user.uid;
+        backupPayload.backupSource = source;
+
+        await getUserBackupsCollection().add({
+            userId: user.uid,
+            backupDate: firebase.firestore.FieldValue.serverTimestamp(),
+            backupDateISO: timestamp,
+            backupData: backupPayload
+        });
+
+        userSettings.lastCloudBackupAt = timestamp;
+        localStorage.setItem('userSettings', JSON.stringify(userSettings));
+        await db.collection('users').doc(user.uid).set({ settings: userSettings }, { merge: true });
+        if (settingsPage.style.display === 'block') renderSettingsPage();
+    };
+
+    const restoreLatestCloudBackup = async () => {
+        await ensureFreshAuth();
+        const snapshot = await getUserBackupsCollection()
+            .orderBy('backupDate', 'desc')
+            .limit(1)
+            .get();
+
+        if (snapshot.empty) throw new Error('No cloud backups found.');
+
+        const latest = snapshot.docs[0].data() || {};
+        const latestTimestamp = latest.backupDateISO || '';
+        const latestBackup = latest.backupData || {};
+        const validation = validateBackupFile(latestBackup);
+        if (!validation.valid) throw new Error('Latest cloud backup is corrupted.');
+
+        if (!window.confirm(`Restore latest cloud backup from ${formatBackupDateTime(latestTimestamp)}? This will replace your current data.`)) {
+            throw new Error('Restore cancelled.');
+        }
+        loadBackupData(latestBackup, { replaceExisting: true, isLegacy: validation.isLegacy });
+    };
+
+    const runScheduledCloudBackupIfDue = async () => {
+        if (!user) return;
+        const interval = getBackupIntervalMs(userSettings.backupSchedule);
+        if (!interval) return;
+
+        const now = Date.now();
+        const lastBackupTime = userSettings.lastCloudBackupAt ? new Date(userSettings.lastCloudBackupAt).getTime() : 0;
+        if ((now - lastBackupTime) < interval) return;
+
+        try {
+            await performCloudBackup({ source: 'scheduled' });
+            setBackupStatusLabel('Scheduled Backup Success');
+        } catch (error) {
+            const message = normalizeCloudError(error, error.message);
+            setBackupStatusLabel('Scheduled Backup Failed', true);
+            console.error(message);
+        }
+    };
+
+    const scheduleAutomaticBackupChecker = () => {
+        if (autoBackupTimerId) {
+            clearInterval(autoBackupTimerId);
+            autoBackupTimerId = null;
+        }
+        if (!user || !getBackupIntervalMs(userSettings.backupSchedule)) return;
+        autoBackupTimerId = setInterval(() => {
+            runScheduledCloudBackupIfDue().catch(err => console.error('Scheduled backup failed:', err));
+        }, 5 * 60 * 1000);
+    };
+
+    const handleBackupScheduleChange = async () => {
+        const schedule = document.getElementById('settings-backup-schedule').value;
+        userSettings.backupSchedule = schedule;
+        localStorage.setItem('userSettings', JSON.stringify(userSettings));
+        try {
+            await db.collection('users').doc(user.uid).set({ settings: userSettings }, { merge: true });
+            showDataOperationStatus(`Backup schedule updated: ${schedule}.`);
+            scheduleAutomaticBackupChecker();
+            runScheduledCloudBackupIfDue().catch(err => console.error('Scheduled backup check failed:', err));
+        } catch (error) {
+            showDataOperationStatus('Failed to update backup schedule.', true);
+        }
+    };
+
+    const handleFullBackup = async () => {
+        if (!user) {
+            showDataOperationStatus('Please sign in before backup.', true);
+            return;
+        }
+
+        setBackupStatusLabel('Syncing...');
+        try {
+            await ensureFreshAuth();
+            const backupPayload = createBackup({ scope: 'all' });
+            downloadBackup(backupPayload, `leave-system-backup-${formatDateForBackupFile()}.json`);
+            await performCloudBackup({ source: 'manual' });
+            setBackupStatusLabel('Success');
+            showDataOperationStatus('Backup completed. JSON exported and cloud backup saved.');
+        } catch (error) {
+            const message = normalizeCloudError(error, error.message || 'Cloud backup failed.');
             setBackupStatusLabel('Failed', true);
             showDataOperationStatus(message, true);
-            promptRetry(message, handleFullBackup);
-        });
-    }
+            if (message.includes('sign in again')) {
+                requestReauthAndRetry(handleFullBackup).catch(err => console.error(err));
+            }
+        }
+    };
 
     const showRestoreModal = () => {
-        restoreLatestCloudBackup()
-            .catch((err) => {
-                if (err.message === 'Restore cancelled.') return;
-                if (err.message !== 'No cloud backups found.') {
-                    const message = normalizeCloudError(err, err.message);
-                    showDataOperationStatus(message, true);
-                    promptRetry(message, showRestoreModal);
-                    return;
-                }
-
         const content = `
             <div class="space-y-4">
-                <p class="text-sm text-gray-600 dark:text-gray-300">No cloud backup found. Restore from a JSON backup file instead.</p>
+                <p class="text-sm text-gray-600 dark:text-gray-300">Restore from latest cloud backup or choose a JSON backup file from iCloud Drive/local storage.</p>
+                <button id="restore-cloud-latest-btn" class="w-full px-4 py-2 rounded-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors">Restore Latest Cloud Backup</button>
                 <input type="file" id="full-restore-file-input" class="hidden" accept=".json,application/json" />
-                <button id="pick-full-restore-file-btn" class="w-full px-4 py-2 rounded-lg font-semibold bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Choose Backup File</button>
+                <button id="pick-full-restore-file-btn" class="w-full px-4 py-2 rounded-lg font-semibold bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Restore from JSON File</button>
                 <p class="text-xs text-red-500">Restoring replaces current data after confirmation.</p>
             </div>
         `;
 
         openModal(createModal('Restore Backup', content, 'restore-modal'));
 
+        const cloudBtn = document.getElementById('restore-cloud-latest-btn');
         const pickerBtn = document.getElementById('pick-full-restore-file-btn');
         const input = document.getElementById('full-restore-file-input');
+
+        cloudBtn.onclick = async () => {
+            try {
+                await restoreLatestCloudBackup();
+                closeModal();
+                setBackupStatusLabel('Restored');
+                showDataOperationStatus('Latest cloud backup restored successfully.');
+            } catch (error) {
+                if (error.message === 'Restore cancelled.') return;
+                const message = normalizeCloudError(error, error.message);
+                showDataOperationStatus(message, true);
+                if (message.includes('sign in again')) {
+                    requestReauthAndRetry(() => {
+                        closeModal();
+                        showRestoreModal();
+                    }).catch(err => console.error(err));
+                }
+            }
+        };
 
         pickerBtn.onclick = () => input.click();
         input.onchange = () => {
@@ -3491,20 +3384,19 @@ document.addEventListener('DOMContentLoaded', () => {
             restoreBackup(file, { replaceExisting: true, requireConfirmation: true })
                 .then(() => {
                     closeModal();
+                    setBackupStatusLabel('Restored');
                     showDataOperationStatus('Backup restored successfully.');
                 })
                 .catch((err) => {
                     if (err.message !== 'Restore cancelled.') {
-                        const message = normalizeCloudError(err, err.message);
-                        showDataOperationStatus(message, true);
+                        showDataOperationStatus(err.message, true);
                     }
                 })
                 .finally(() => {
                     input.value = '';
                 });
         };
-            });
-    }
+    };
     
     const handleFullCSVExport = () => {
         const headers = ['Date', 'InTime', 'OutTime', 'MovementOut', 'MovementIn', 'TeamMembers', 'WorkLocation', 'VehicleNumber', 'KM', 'SpecialDay', 'LeaveStatus', 'LeaveReason', 'LeaveReasonDetails'];
@@ -3694,7 +3586,6 @@ document.addEventListener('DOMContentLoaded', () => {
     auth.onAuthStateChanged(async (currentUser) => {
         loadingSpinner.style.display = 'flex';
         loadingSpinner.style.opacity = '1';
-        setSyncStatusLabel('Syncing...');
         if (userRefUnsubscribe) userRefUnsubscribe();
         
         if (currentUser) await currentUser.reload();
@@ -3706,21 +3597,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const userRef = db.collection("users").doc(user.uid);
             
-            if (localStorage.getItem('workData') || localStorage.getItem('reminders') || localStorage.getItem('userSettings')) {
+            if (localStorage.getItem('workData') || localStorage.getItem('reminders')) {
                 try {
                     const localWorkData = JSON.parse(localStorage.getItem('workData') || '{}');
                     const localReminders = JSON.parse(localStorage.getItem('reminders') || '[]');
-                    const localSettings = JSON.parse(localStorage.getItem('userSettings') || '{}');
                     const doc = await userRef.get();
                     const cloudData = doc.data() || {};
                     const mergedWorkData = { ...(cloudData.workData || {}), ...localWorkData };
                     const uniqueReminders = [...new Set([...(cloudData.reminders || []), ...localReminders].map(JSON.stringify))].map(JSON.parse);
-                    const mergedSettings = { ...DEFAULT_USER_SETTINGS, ...(cloudData.settings || {}), ...localSettings };
-
-                    await userRef.set({ workData: mergedWorkData, reminders: uniqueReminders, settings: mergedSettings }, { merge: true });
+                    await userRef.set({ workData: mergedWorkData, reminders: uniqueReminders }, { merge: true });
                     localStorage.removeItem('workData');
                     localStorage.removeItem('reminders');
-                    localStorage.removeItem('userSettings');
                 } catch (err) { console.error("Failed to sync local data:", err); }
             }
 
@@ -3737,14 +3624,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     workData = data?.workData || {};
                     reminders = data?.reminders || [];
                     userSettings = { ...DEFAULT_USER_SETTINGS, ...(data?.settings || {}) };
-                    setSyncStatusLabel('Syncing...');
                     return;
                 }
 
                 workData = data?.workData || {};
                 reminders = data?.reminders || [];
                 userSettings = { ...DEFAULT_USER_SETTINGS, ...(data?.settings || {}) };
-                setSyncStatusLabel('Cloud Synced');
 
                 if (isFirstSnapshot) {
                     isFirstSnapshot = false;
@@ -3761,7 +3646,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }, err => {
                 console.error("Firestore snapshot error: ", err);
-                setSyncStatusLabel('Sync Failed', true);
                 initializeAppForUser(); // Fallback on error
             });
 
@@ -3777,7 +3661,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearInterval(autoBackupTimerId);
                 autoBackupTimerId = null;
             }
-            setSyncStatusLabel('Not Synced');
             
             appWrapper.style.display = 'none';
             signupPage.style.display = 'none';
@@ -3796,17 +3679,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const apiKey = "AIzaSyCppq-j59GI9USv1Y0v2miQEn9y_7NfIWM";
     const ai = new GoogleGenAI({ apiKey: apiKey });
 
-    window.generateProfessionalMessage = async (userInput, style = 'professional') => {
+    window.generateProfessionalMessage = async (userInput) => {
         try {
-            const styleMap = {
-                professional: 'polished professional workplace English',
-                office: 'clear office communication English',
-                formal: 'formal and respectful English',
-                casual: 'friendly casual English',
-                funny: 'light humorous English while still clear'
-            };
-            const selectedStyle = styleMap[style] || styleMap.professional;
-            const prompt = `You are an expert English writing assistant. Convert user input that may be Tamil speech text or Tanglish (Tamil + English mixed) into grammatically correct English in ${selectedStyle}. Keep the original meaning accurate. Do not add explanations or markdown. Return only the converted English sentence(s). User input: "${userInput}"`;
+            const prompt = `You are an expert in converting informal 'Tanglish' (a mix of Tamil and English) text into professional, formal English. Convert the following message into a polite and professional English sentence suitable for a workplace context. Do not add any explanations, preamble, or markdown formatting. Just provide the converted sentence as plain text. Tanglish message: "${userInput}"`;
 
             const response = await ai.models.generateContent({
                 model: 'gemini-2.5-flash',
